@@ -16,7 +16,6 @@ describe('RegistrationForm', () => {
             name: /keep me logged in/i
         })).not.toBeChecked();
         expect(screen.getByRole('button', { name: 'Log In' })).toBeInTheDocument();
-        screen.debug();
     });
     it('should show error message when email is not provided', async () => {
         render(<RegistrationForm />);
