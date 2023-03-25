@@ -1,6 +1,7 @@
 import Head from 'next/head'
-import { Inter } from 'next/font/google'
 import RegistrationForm from '@/components/RegistrationForm'
+import RegistrationFormController from '@/components/RegistrationFormController'
+import RegistrationFormUseController from '@/components/RegistrationFormUseController'
 
 export default function Home() {
   return (
@@ -14,6 +15,8 @@ export default function Home() {
       <main>
         <h1>React Hook Form</h1>
         <RegistrationForm />
+        {/* <RegistrationFormController /> */}
+        {/* <RegistrationFormUseController /> */}
       </main>
     </>
   )

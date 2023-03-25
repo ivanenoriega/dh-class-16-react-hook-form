@@ -1,0 +1,42 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  margin: 0 auto;
+  padding: 20px;
+  gap: 20px;
+  border: 1px solid #000;
+  border-radius: 5px;
+}
+
+.title {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.field:not(:last-of-type) {
+  padding-bottom: 20px;
+}
+
+.field .label {
+  padding-bottom: 5px;
+}
+
+.field .checkbox {
+  align-self: flex-start;
+}
+
+.error {
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  color: red;
+}

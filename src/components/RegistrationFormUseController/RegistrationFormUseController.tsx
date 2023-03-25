@@ -1,19 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import SuccessMessage from '../SuccessMessage/SuccessMessage';
-import styles from './RegistrationForm.module.css';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import Input from './Input/Input';
+import styles from './RegistrationFormUseController.module.css';
 
-const schema = yup.object({
-    email: yup.string().email().required(),
-    password: yup.string().min(8).required(),
-}).required();
-
-const RegistrationForm = () => {
-    const { register, handleSubmit, formState: { errors } } = useForm({
-        resolver: yupResolver(schema)
-    });
+const RegistrationFormUseController = () => {
+    const { register, handleSubmit, formState: { errors }, control, watch } = useForm();
     const [success, setSuccess] = useState(false);
     const [fields, setFields] = useState({
         email: '',
@@ -28,25 +20,28 @@ const RegistrationForm = () => {
         });
         setSuccess(true);
     };
+    console.log('watch', watch());
 
     const showEmailRequiredErrorMessage = errors['email'] && errors['email'].type === 'required';
     const showPasswordRequiredErrorMessage = errors['password'] && errors['password'].type === 'required';
-    const showPasswordMinLengthErrorMessage = errors['password'] && errors['password'].type === 'min';
+    const showPasswordMinLengthErrorMessage = errors['password'] && errors['password'].type === 'minLength';
 
     return (
         <div>
             {success
                 ? (<SuccessMessage {...fields} showForm={() => { setSuccess(false) }} />)
                 : (<form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-                    <h2 className={styles.title}>Log In Form</h2>
+                    <h2 className={styles.title}>Log In Form (UseContrller)</h2>
                     <div className={styles.field}>
                         <label className={styles.label} htmlFor="email">Email</label>
-                        <input type="email" id="email" {...register('email')} />
+                        {/* <input type="email" id="email" {...register('email', { required: true })} /> */}
+                        <Input type="email" control={control} rules={{ required: true }} name="email" />
                         {showEmailRequiredErrorMessage && <span className={styles.error}>Email is required</span>}
                     </div>
                     <div className={styles.field}>
                         <label className={styles.label} htmlFor="password">Password</label>
-                        <input type="password" id="password" {...register('password')} />
+                        {/* <input type="password" id="password" {...register('password', { required: true, minLength: 8 })} /> */}
+                        <Input type="password" control={control} rules={{ required: true, minLength: 8 }} name="password" />
                         {showPasswordRequiredErrorMessage && <span className={styles.error}>Password is required</span>}
                         {showPasswordMinLengthErrorMessage && <span className={styles.error}>Password needs at least 8 characters</span>}
                     </div>
@@ -61,4 +56,4 @@ const RegistrationForm = () => {
     );
 };
 
-export default RegistrationForm;
+export default RegistrationFormUseController;
